@@ -52,8 +52,8 @@ export function Header() {
           <Logo />
 
           <div className="hidden min-w-0 flex-1 items-center gap-3 md:flex">
-            <LocationSelector className="w-56 shrink-0" />
-            <form onSubmit={submit} className="relative min-w-0 flex-1">
+            <LocationSelector className="w-44 shrink-0 lg:w-52" />
+            <form onSubmit={submit} className="relative min-w-[120px] flex-1 lg:max-w-sm">
               <Search
                 size={18}
                 className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-600/60"
@@ -68,14 +68,18 @@ export function Header() {
             </form>
           </div>
 
-          <nav className="ml-auto hidden items-center gap-1 lg:flex">
+          <nav className="hidden shrink-0 items-center gap-1 xl:flex">
             <HeaderLink href="/piedavajumi">{t("nav.browse")}</HeaderLink>
-            <HeaderLink href="/ietekme">{t("nav.impact")}</HeaderLink>
-            <HeaderLink href="/par-mums">{t("nav.about")}</HeaderLink>
+            <HeaderLink href="/ietekme" className="hidden 2xl:block">
+              {t("nav.impact")}
+            </HeaderLink>
+            <HeaderLink href="/par-mums" className="hidden 2xl:block">
+              {t("nav.about")}
+            </HeaderLink>
             <HeaderLink href="/cenas">{t("nav.pricing")}</HeaderLink>
           </nav>
 
-          <div className="ml-auto flex items-center gap-2 md:ml-0">
+          <div className="ml-auto flex shrink-0 items-center gap-2">
             <LanguageSwitch className="hidden sm:inline-flex" />
             <Link
               href="/grozs"
@@ -126,11 +130,22 @@ export function Header() {
   );
 }
 
-function HeaderLink({ href, children }: { href: string; children: React.ReactNode }) {
+function HeaderLink({
+  href,
+  children,
+  className,
+}: {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
     <Link
       href={href}
-      className="rounded-lg px-3 py-2 text-sm font-semibold text-ink-700 transition hover:bg-sand-100 hover:text-ink-900"
+      className={cn(
+        "rounded-lg px-3 py-2 text-sm font-semibold text-ink-700 transition hover:bg-sand-100 hover:text-ink-900",
+        className,
+      )}
     >
       {children}
     </Link>

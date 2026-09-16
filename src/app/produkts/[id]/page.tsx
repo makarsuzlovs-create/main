@@ -73,7 +73,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const savedAmount = (listing.originalPrice - listing.discountedPrice) * quantity;
 
   return (
-    <div className="container-page py-6">
+    <div className="container-page py-6 pb-28 lg:pb-6">
       <button
         onClick={() => router.back()}
         className="mb-4 inline-flex items-center gap-1.5 text-sm font-bold text-ink-600 transition hover:text-ink-900"
@@ -305,6 +305,48 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           </div>
         </aside>
       </div>
+
+      {/* Mobile purchase bar, sits above the bottom navigation. */}
+      {offer.available && (
+        <div className="fixed inset-x-0 bottom-[60px] z-30 border-t border-sand-200 bg-white/95 px-4 py-3 backdrop-blur lg:hidden">
+          <div className="flex items-center gap-3">
+            <div>
+              <p className="text-lg font-extrabold leading-tight text-brand-700">
+                {formatPrice(listing.discountedPrice * quantity, locale)}
+              </p>
+              <p className="text-[11px] text-ink-600 line-through">
+                {formatPrice(listing.originalPrice * quantity, locale)}
+              </p>
+            </div>
+            <div className="ml-auto inline-flex items-center gap-1 rounded-xl border border-sand-200 p-1">
+              <button
+                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                className="flex h-8 w-8 items-center justify-center rounded-lg bg-sand-100"
+                aria-label="-"
+              >
+                <Minus size={14} />
+              </button>
+              <span className="w-6 text-center text-sm font-extrabold">{quantity}</span>
+              <button
+                onClick={() => setQuantity((q) => Math.min(maxQuantity, q + 1))}
+                className="flex h-8 w-8 items-center justify-center rounded-lg bg-sand-100"
+                aria-label="+"
+              >
+                <Plus size={14} />
+              </button>
+            </div>
+            <button
+              onClick={() => {
+                addToCart(listing.id, quantity);
+                setToast(t("offer.addToCart"));
+              }}
+              className="h-11 shrink-0 rounded-xl bg-brand-600 px-5 text-sm font-bold text-white"
+            >
+              {t("offer.reserve")}
+            </button>
+          </div>
+        </div>
+      )}
 
       <Toast message={toast} onClose={() => setToast(null)} />
     </div>

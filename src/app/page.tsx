@@ -237,7 +237,7 @@ function Hero() {
         aria-hidden
         className="absolute -bottom-32 left-10 h-80 w-80 rounded-full bg-clay-400/20 blur-3xl"
       />
-      <div className="container-page relative py-14 sm:py-20">
+      <div className="container-page relative grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="max-w-2xl">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-bold text-white backdrop-blur">
             <Leaf size={14} /> {t("common.demoBadge")}
@@ -261,8 +261,49 @@ function Hero() {
             </Button>
           </div>
         </div>
+
+        <HeroPreview />
       </div>
     </section>
+  );
+}
+
+/** Decorative preview of an offer card, shown beside the hero copy. */
+function HeroPreview() {
+  const { t, locale } = useI18n();
+  return (
+    <div className="relative hidden lg:block" aria-hidden>
+      <div className="ml-auto w-[330px] rotate-[-2deg] rounded-3xl bg-white p-3 shadow-lift">
+        <div
+          className="relative flex h-40 items-center justify-center rounded-2xl text-6xl"
+          style={{ backgroundImage: "linear-gradient(135deg,#f5d9a8,#d99b57)" }}
+        >
+          🥖
+          <span className="absolute left-3 top-3 rounded-full bg-clay-500 px-2.5 py-1 text-xs font-extrabold text-white">
+            -65%
+          </span>
+        </div>
+        <div className="p-3">
+          <p className="text-xs font-semibold text-ink-600">🥖 SIA &quot;Rudzu Rīts&quot;</p>
+          <p className="mt-0.5 text-base font-extrabold text-ink-900">
+            {locale === "lv" ? "Rīta maiznīcas paka" : "Morning bakery bag"}
+          </p>
+          <p className="mt-1 text-xs text-ink-600">{t("offer.pickupToday")} 18:00–20:00 · 1,2 km</p>
+          <div className="mt-2 flex items-baseline gap-2">
+            <span className="text-xl font-extrabold text-brand-700">3,99 €</span>
+            <span className="text-sm text-ink-600 line-through">11,50 €</span>
+            <span className="ml-auto text-[11px] font-bold text-clay-600">
+              {t("offer.onlyLeft", { count: 4 })}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute -bottom-6 left-0 w-56 rotate-[3deg] rounded-2xl bg-white/95 p-4 shadow-lift backdrop-blur">
+        <p className="text-2xl font-extrabold text-brand-700">12 450 kg</p>
+        <p className="text-xs font-semibold text-ink-600">{t("home.impactStripTitle")}</p>
+      </div>
+    </div>
   );
 }
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import type {
   InputHTMLAttributes,
   ReactNode,
@@ -15,6 +16,7 @@ export function FieldWrapper({
   required,
   children,
   className,
+  htmlFor,
 }: {
   label?: string;
   hint?: string;
@@ -22,11 +24,12 @@ export function FieldWrapper({
   required?: boolean;
   children: ReactNode;
   className?: string;
+  htmlFor?: string;
 }) {
   return (
     <div className={className}>
       {label && (
-        <label className="label">
+        <label className="label" htmlFor={htmlFor}>
           {label}
           {required && <span className="ml-0.5 text-clay-500">*</span>}
         </label>
@@ -52,8 +55,11 @@ export function TextField({
   required,
   wrapperClassName,
   className,
+  id,
   ...props
 }: TextFieldProps) {
+  const generatedId = useId();
+  const fieldId = id ?? generatedId;
   return (
     <FieldWrapper
       label={label}
@@ -61,8 +67,10 @@ export function TextField({
       error={error}
       required={required}
       className={wrapperClassName}
+      htmlFor={fieldId}
     >
       <input
+        id={fieldId}
         className={cn("field", error && "border-red-400 focus:border-red-400 focus:ring-red-100", className)}
         required={required}
         {...props}
@@ -85,8 +93,11 @@ export function TextArea({
   required,
   wrapperClassName,
   className,
+  id,
   ...props
 }: TextAreaProps) {
+  const generatedId = useId();
+  const fieldId = id ?? generatedId;
   return (
     <FieldWrapper
       label={label}
@@ -94,8 +105,14 @@ export function TextArea({
       error={error}
       required={required}
       className={wrapperClassName}
+      htmlFor={fieldId}
     >
-      <textarea className={cn("field min-h-[96px] resize-y", className)} required={required} {...props} />
+      <textarea
+        id={fieldId}
+        className={cn("field min-h-[96px] resize-y", className)}
+        required={required}
+        {...props}
+      />
     </FieldWrapper>
   );
 }
@@ -116,8 +133,11 @@ export function SelectField({
   wrapperClassName,
   className,
   children,
+  id,
   ...props
 }: SelectFieldProps) {
+  const generatedId = useId();
+  const fieldId = id ?? generatedId;
   return (
     <FieldWrapper
       label={label}
@@ -125,8 +145,14 @@ export function SelectField({
       error={error}
       required={required}
       className={wrapperClassName}
+      htmlFor={fieldId}
     >
-      <select className={cn("field appearance-none pr-9", className)} required={required} {...props}>
+      <select
+        id={fieldId}
+        className={cn("field appearance-none pr-9", className)}
+        required={required}
+        {...props}
+      >
         {children}
       </select>
     </FieldWrapper>

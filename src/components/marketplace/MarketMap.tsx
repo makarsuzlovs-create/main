@@ -67,10 +67,15 @@ export function MarketMap({ offers, className }: { offers: OfferView[]; classNam
     };
   }, [pins, userLocation]);
 
-  const project = (lat: number, lng: number) => ({
-    left: `${((lng - bounds.minLng) / (bounds.maxLng - bounds.minLng || 1)) * 100}%`,
-    top: `${(1 - (lat - bounds.minLat) / (bounds.maxLat - bounds.minLat || 1)) * 100}%`,
-  });
+  // Keep pins inside a padded frame so labels never clip at the edges.
+  const project = (lat: number, lng: number) => {
+    const x = (lng - bounds.minLng) / (bounds.maxLng - bounds.minLng || 1);
+    const y = 1 - (lat - bounds.minLat) / (bounds.maxLat - bounds.minLat || 1);
+    return {
+      left: `${10 + x * 80}%`,
+      top: `${12 + y * 76}%`,
+    };
+  };
 
   const active = pins.find((p) => p.key === selected);
 
