@@ -13,8 +13,8 @@ import {
   Star,
 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
 import { MarketMap } from "@/components/marketplace/MarketMap";
 import { FavoriteButton } from "@/components/marketplace/FavoriteButton";
 import { OfferCardCompact, pickupLabel } from "@/components/marketplace/OfferCard";
@@ -29,11 +29,26 @@ import { pick, useI18n } from "@/lib/i18n";
 import { useSessionStore } from "@/lib/store/sessionStore";
 import { formatDate, formatDistance, formatPrice, unitLabel } from "@/lib/utils";
 
-export default function ProductPage({ params }: { params: { id: string } }) {
+export default function ProductPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="container-page py-8">
+          <Skeleton className="h-80 w-full rounded-3xl" />
+        </div>
+      }
+    >
+      <ProductView />
+    </Suspense>
+  );
+}
+
+function ProductView() {
   const { t, locale } = useI18n();
   const hydrated = useHydrated();
   const router = useRouter();
-  const offer = useOfferView(params.id);
+  const listingId = useSearchParams().get("id") ?? "";
+  const offer = useOfferView(listingId);
   const allOffers = useOfferViews();
   const addToCart = useSessionStore((s) => s.addToCart);
   const [quantity, setQuantity] = useState(1);

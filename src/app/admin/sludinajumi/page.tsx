@@ -68,7 +68,7 @@ export default function AdminListingsPage() {
                 <tr key={listing.id}>
                   <td>
                     <Link
-                      href={`/produkts/${listing.id}`}
+                      href={`/produkts?id=${listing.id}`}
                       className="font-bold hover:text-brand-700"
                     >
                       {listing.title}

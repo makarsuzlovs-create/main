@@ -1,6 +1,8 @@
 "use client";
 
 import { CheckCircle2, Clock, Leaf, MapPin, Ticket } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { Button } from "@/components/ui/Button";
 import { EmptyState, Skeleton } from "@/components/ui/Misc";
 import { useHydrated } from "@/components/providers/AppProviders";
@@ -8,10 +10,25 @@ import { useI18n } from "@/lib/i18n";
 import { useDataStore } from "@/lib/store/dataStore";
 import { formatPrice, formatTime, formatDate } from "@/lib/utils";
 
-export default function OrderConfirmationPage({ params }: { params: { id: string } }) {
+export default function OrderConfirmationPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="container-page py-10">
+          <Skeleton className="h-96 w-full rounded-3xl" />
+        </div>
+      }
+    >
+      <OrderConfirmation />
+    </Suspense>
+  );
+}
+
+function OrderConfirmation() {
   const { t, locale } = useI18n();
   const hydrated = useHydrated();
-  const order = useDataStore((s) => s.orders.find((o) => o.id === params.id));
+  const orderId = useSearchParams().get("id") ?? "";
+  const order = useDataStore((s) => s.orders.find((o) => o.id === orderId));
 
   if (!hydrated) {
     return (

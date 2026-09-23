@@ -106,7 +106,7 @@ export default function OrdersPage() {
                 {order.items.map((item) => (
                   <li key={item.id} className="flex justify-between gap-3">
                     <Link
-                      href={`/produkts/${item.listingId}`}
+                      href={`/produkts?id=${item.listingId}`}
                       className="min-w-0 truncate hover:text-brand-700"
                     >
                       {item.quantity} × {item.titleSnapshot}

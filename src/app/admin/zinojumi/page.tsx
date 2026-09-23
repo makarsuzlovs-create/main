@@ -30,7 +30,7 @@ export default function AdminReportsPage() {
                   </p>
                   {report.targetType === "listing" ? (
                     <Link
-                      href={`/produkts/${report.targetId}`}
+                      href={`/produkts?id=${report.targetId}`}
                       className="text-sm font-extrabold text-ink-900 hover:text-brand-700"
                     >
                       {report.targetLabel}

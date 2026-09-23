@@ -170,7 +170,7 @@ function ListingRow({
 
       <div className="flex flex-wrap gap-2">
         <Link
-          href={`/biznesa-panelis/piedavajumi/${listing.id}`}
+          href={`/biznesa-panelis/piedavajumi/rediget?id=${listing.id}`}
           className="chip"
         >
           {t("common.edit")}

@@ -44,7 +44,7 @@ export function OfferCard({ offer, onAdd }: { offer: OfferView; onAdd?: () => vo
 
   return (
     <article className="card card-hover group relative flex flex-col overflow-hidden">
-      <Link href={`/produkts/${listing.id}`} className="relative block h-40 w-full overflow-hidden">
+      <Link href={`/produkts?id=${listing.id}`} className="relative block h-40 w-full overflow-hidden">
         <FoodImage
           categorySlug={listing.categorySlug}
           src={listing.image || undefined}
@@ -80,7 +80,7 @@ export function OfferCard({ offer, onAdd }: { offer: OfferView; onAdd?: () => vo
         </div>
 
         <h3 className="line-clamp-2 text-[15px] font-extrabold leading-snug text-ink-900">
-          <Link href={`/produkts/${listing.id}`} className="hover:text-brand-700">
+          <Link href={`/produkts?id=${listing.id}`} className="hover:text-brand-700">
             {pick(locale, listing.title, listing.titleEn)}
           </Link>
         </h3>
@@ -139,7 +139,7 @@ export function OfferCardCompact({ offer }: { offer: OfferView }) {
   const { listing } = offer;
   return (
     <Link
-      href={`/produkts/${listing.id}`}
+      href={`/produkts?id=${listing.id}`}
       className="card card-hover flex gap-3 overflow-hidden p-2.5"
     >
       <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl">

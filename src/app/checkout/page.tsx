@@ -86,7 +86,7 @@ export default function CheckoutPage() {
       return;
     }
     clearCart();
-    router.push(`/pasutijums/${result.orders[0].id}`);
+    router.push(`/pasutijums?id=${result.orders[0].id}`);
   };
 
   return (

@@ -73,7 +73,7 @@ function InvoiceList({ seller }: { seller: SellerContext }) {
                 </td>
                 <td>
                   <div className="flex flex-wrap gap-1.5">
-                    <Link href={`/biznesa-panelis/rekini/${invoice.id}`} className="chip">
+                    <Link href={`/biznesa-panelis/rekini/skatit?id=${invoice.id}`} className="chip">
                       <Download size={13} /> {t("invoices.view")}
                     </Link>
                     <button

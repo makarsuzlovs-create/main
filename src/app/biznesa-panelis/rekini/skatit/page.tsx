@@ -2,17 +2,28 @@
 
 import { ArrowLeft, Printer } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { InvoiceDocument } from "@/components/dashboard/InvoiceDocument";
 import { Button } from "@/components/ui/Button";
-import { EmptyState } from "@/components/ui/Misc";
+import { EmptyState, Skeleton } from "@/components/ui/Misc";
 import { useSeller } from "@/lib/hooks/useSeller";
 import { useI18n } from "@/lib/i18n";
 
-export default function InvoiceDetailPage({ params }: { params: { id: string } }) {
+export default function InvoiceDetailPage() {
+  return (
+    <Suspense fallback={<Skeleton className="m-6 h-96 rounded-3xl" />}>
+      <InvoiceDetail />
+    </Suspense>
+  );
+}
+
+function InvoiceDetail() {
   const { t } = useI18n();
   const seller = useSeller();
-  const invoice = seller?.invoices.find((i) => i.id === params.id);
+  const invoiceId = useSearchParams().get("id") ?? "";
+  const invoice = seller?.invoices.find((i) => i.id === invoiceId);
 
   return (
     <DashboardShell

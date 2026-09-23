@@ -96,7 +96,7 @@ export default function CartPage() {
                           className="flex gap-3 border-b border-sand-100 p-4 last:border-b-0"
                         >
                           <Link
-                            href={`/produkts/${listing.id}`}
+                            href={`/produkts?id=${listing.id}`}
                             className="h-20 w-20 shrink-0 overflow-hidden rounded-xl"
                           >
                             <FoodImage
@@ -107,7 +107,7 @@ export default function CartPage() {
                           </Link>
                           <div className="min-w-0 flex-1">
                             <Link
-                              href={`/produkts/${listing.id}`}
+                              href={`/produkts?id=${listing.id}`}
                               className="line-clamp-1 text-sm font-extrabold text-ink-900 hover:text-brand-700"
                             >
                               {pick(locale, listing.title, listing.titleEn)}
